@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/bands/metallica/discography"
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"bodyFileName": "metallica/discographySuccess.json"
+	}
+}

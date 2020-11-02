@@ -1,0 +1,22 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/bands/metallica/album",
+		"bodyPatterns": [
+			{
+				"equalToJson": {
+					"album": "Kill 'Em All"
+				},
+				"ignoreArrayOrder": true,
+				"ignoreExtraElements": true
+			}
+		]
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"bodyFileName": "metallica/albumKillSuccess.json"
+	}
+}

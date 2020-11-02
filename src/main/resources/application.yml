@@ -1,0 +1,20 @@
+server:
+  port: 9098
+
+com:
+  rest:
+    client:
+      mocks:
+        server:
+          port: 8000
+        rootDirectory: src/main/resources
+    host: http://localhost:8000
+    endpoint:
+      discography: /bands/metallica/discography
+      album: /bands/metallica/album
+
+logging:
+  level:
+    com:
+      rest:
+        client: INFO
