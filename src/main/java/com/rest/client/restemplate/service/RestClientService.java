@@ -1,7 +1,10 @@
 package com.rest.client.restemplate.service;
 
+import java.net.URI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 import com.rest.client.exception.RestClientException;
 import com.rest.client.restemplate.dto.RestClientDto;
 import com.rest.client.restemplate.model.RequestAlbum;
@@ -15,11 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class RestClientService {
 
+  @Value("${com.rest.host}${com.rest.endpoint.discography}")
+  private String hostDiscography;
+
+  @Value("${com.rest.host}${com.rest.endpoint.album}")
+  private String hostAlbum;
+
   private final RestClientDto restClientDto;
 
   public ResponseDiscography[] discography() {
     try {
-      return restClientDto.discographyDto(getHeaders());
+      URI uri = buildUri(hostDiscography);
+      return restClientDto.getForObject(uri, ResponseDiscography[].class, getHeaders());
     } catch (Exception ex) {
       log.error("Error: ", ex);
       throw new RestClientException(ex.getMessage());
@@ -28,11 +38,16 @@ public class RestClientService {
 
   public ResponseAlbum[] album(RequestAlbum requestAlbum) {
     try {
-      return restClientDto.albumDto(requestAlbum, getHeaders());
+      URI uri = buildUri(hostAlbum);
+      return restClientDto.postForObject(uri, ResponseAlbum[].class, requestAlbum, getHeaders());
     } catch (Exception ex) {
       log.error("Error: ", ex);
       throw new RestClientException(ex.getMessage());
     }
+  }
+
+  private URI buildUri(String httpUrl) {
+    return UriComponentsBuilder.fromHttpUrl(httpUrl).build().toUri();
   }
 
   private HttpHeaders getHeaders() {

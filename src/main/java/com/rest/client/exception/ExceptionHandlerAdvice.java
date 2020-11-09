@@ -30,7 +30,7 @@ public class ExceptionHandlerAdvice {
   public final ResponseEntity<Object> handleBookingExceptions(
       RestClientException restClientException) {
     return new ResponseEntity<>(restClientException.getErrorResponse(),
-        HttpStatus.INTERNAL_SERVER_ERROR);
+        restClientException.getErrorResponse().getErrorCause());
   }
 
 }
