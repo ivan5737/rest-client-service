@@ -20,7 +20,7 @@ public class ErrorResponse implements Serializable {
   private HttpStatus errorCause;
 
   @Builder.Default
-  private String uuid = new StringBuilder().append(UUID.randomUUID()).append("-")
+  private String uuid = new StringBuilder().append(UUID.randomUUID().getMostSignificantBits()).append("-")
       .append(System.currentTimeMillis()).toString();
 
   @Builder.Default
